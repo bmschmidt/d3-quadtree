@@ -1,6 +1,6 @@
 import Quad from "./quad";
 
-export default function(x, y, radius) {
+export default function(x, y, radius, filter) {
   var data,
       x0 = this._x0,
       y0 = this._y0,
@@ -53,7 +53,7 @@ export default function(x, y, radius) {
     }
 
     // Visit this point. (Visiting coincident points isn’t necessary!)
-    else {
+    else if (!filter || filter(node.data)) {
       var dx = x - +this._x.call(null, node.data),
           dy = y - +this._y.call(null, node.data),
           d2 = dx * dx + dy * dy;
@@ -65,6 +65,5 @@ export default function(x, y, radius) {
       }
     }
   }
-
   return data;
 }
